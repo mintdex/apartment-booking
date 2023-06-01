@@ -16,6 +16,7 @@ Basic apartment booking apis
   - [] Add unit tests
 - [] Add e2e tests
 - [] Add validations
+
 ## How
 
 - To create a room with image you need to:
