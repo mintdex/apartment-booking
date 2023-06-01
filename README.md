@@ -1,31 +1,47 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
-
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
-
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+Apartment Booking APIs
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Basic apartment booking apis
 
+## ToDos
+
+- [x] Develop `/room` route (list/create/edit/delete)
+  - [x] Show available rooms base on time frame
+    - [] Add support if start or end query is missing
+  - [] Add unit tests
+- [x] Develop `/image` route (list/create)
+  - [] Add unit tests
+- [x] Develop `/booking` route
+  - [] Add unit tests
+- [] Add e2e tests
+- [] Add validations
+## How
+
+- To create a room with image you need to:
+  + Create (upload) an image through POST /image API via form. You will receive the image id back, put this id into POST /room payload
+  e.g. payload for creating room
+  ```
+  {
+    "type": "single bed",
+    "description": "new apartment",
+    "imageId": "03e23891-c9a6-45a0-880e-1a9a269fbe1f", (replace the image id here)
+    "price" :50,
+    "quantity": 7
+  } 
+  ```
+- To list all available room in time frame use GET /v1/rooms?start=YYYY-MM-DD&end=YYYY-MM-DD
+- To book multiple rooms, retrieve room ids via GET /v1/rooms?start=YYYY-MM-DD&end=YYYY-MM-DD, put room ids to POST /v1/booking payload
+  e.g. payload for booking
+  ```
+  {
+    "adminId": "123",
+    "customerId": "456",
+    "checkin": "2023-07-20",
+    "checkout": "2023-07-21",
+    "rooms": ["0cd94466-8d23-40a5-b923-18662e3eb0a9"] (put room ids here)
+  }
+  ```
 ## Installation
 
 ```bash
@@ -58,16 +74,3 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
